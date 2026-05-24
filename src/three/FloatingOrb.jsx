@@ -3,10 +3,11 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshDistortMaterial, Float } from '@react-three/drei';
-import { SCENE } from './SceneConfig';
+import { SCENE, SCENE_DARK, SCENE_LIGHT } from './SceneConfig';
 
-export default function FloatingOrb({ mouseRef }) {
+export default function FloatingOrb({ mouseRef, isDark = true }) {
   const meshRef = useRef(null);
+  const matRef  = useRef(null);
   const cfg = SCENE.orb;
 
   useFrame((state) => {
@@ -23,6 +24,12 @@ export default function FloatingOrb({ mouseRef }) {
       const { x, y } = mouseRef.current;
       meshRef.current.position.x = cfg.position[0] + x * 0.25;
       meshRef.current.position.y = cfg.position[1] + y * 0.18;
+    }
+
+    // Lerp opacity between theme targets
+    if (matRef.current) {
+      const targetOpacity = isDark ? SCENE_DARK.orb.opacity : SCENE_LIGHT.orb.opacity;
+      matRef.current.opacity += (targetOpacity - matRef.current.opacity) * 0.04;
     }
   });
 
@@ -41,6 +48,7 @@ export default function FloatingOrb({ mouseRef }) {
       >
         <sphereGeometry args={[1, 64, 64]} />
         <MeshDistortMaterial
+          ref={matRef}
           color={cfg.color}
           metalness={cfg.metalness}
           roughness={cfg.roughness}
@@ -55,3 +63,4 @@ export default function FloatingOrb({ mouseRef }) {
     </Float>
   );
 }
+

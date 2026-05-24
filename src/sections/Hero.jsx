@@ -43,10 +43,10 @@ function RotatingText({ texts }) {
     <span
       style={{
         display: 'inline-block',
-        color: 'rgba(255,255,255,0.35)',
+        color: 'var(--text-3)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(-6px)',
-        transition: 'opacity 0.35s ease, transform 0.35s ease',
+        transition: 'opacity 0.35s ease, transform 0.35s ease, color 0.45s ease',
         fontWeight: 200,
       }}
     >
@@ -111,8 +111,10 @@ export default function Hero({ isRevealing }) {
         .fromTo(line2Ref.current,
           { clipPath: 'inset(0 0 100% 0)', y: 16 },
           {
-            clipPath: 'inset(0 0 0% 0)',
+            clipPath: 'inset(0 -10px 0% -2px)',
             y: 0,
+            paddingBottom: '0.15em',
+            marginBottom: '-0.15em',
             duration: 1.1,
             ease: 'power4.out',
           },
@@ -176,11 +178,11 @@ export default function Hero({ isRevealing }) {
                 width: '6px',
                 height: '6px',
                 borderRadius: '50%',
-                background: 'rgba(255,255,255,0.6)',
-                boxShadow: '0 0 8px rgba(255,255,255,0.4)',
+                background: 'var(--text-2)',
+                boxShadow: '0 0 8px var(--glow-strong)',
               }}
             />
-            <span className="text-label" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            <span className="text-label" style={{ color: 'var(--text-3)' }}>
               Available for work · Padang, Indonesia
             </span>
           </div>
@@ -191,7 +193,7 @@ export default function Hero({ isRevealing }) {
               <div
                 ref={line1Ref}
                 className="text-display"
-                style={{ color: '#fafafa', clipPath: 'inset(0 0 100% 0)' }}
+                style={{ color: 'var(--text-1)', clipPath: 'inset(0 0 100% 0)' }}
               >
                 {personal.name}
               </div>
@@ -216,7 +218,7 @@ export default function Hero({ isRevealing }) {
               fontSize: '16px',
               fontWeight: 300,
               lineHeight: 1.75,
-              color: 'rgba(255,255,255,0.4)',
+              color: 'var(--text-2)',
               marginBottom: '40px',
             }}
           >
@@ -255,7 +257,7 @@ export default function Hero({ isRevealing }) {
               justifyContent: 'space-between',
               marginTop: '80px',
               paddingTop: '24px',
-              borderTop: '1px solid rgba(255,255,255,0.05)',
+              borderTop: '1px solid var(--line)',
             }}
           >
             <div style={{ display: 'flex', gap: '20px' }}>
@@ -269,15 +271,15 @@ export default function Hero({ isRevealing }) {
                     rel="noopener noreferrer"
                     style={{
                       fontSize: '12px',
-                      color: 'rgba(255,255,255,0.25)',
+                      color: 'var(--text-3)',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '6px',
                       transition: 'color 0.2s ease',
                       textDecoration: 'none',
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.25)'}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-2)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-3)'}
                     aria-label={link.label}
                   >
                     <Icon size={14} />
@@ -294,7 +296,7 @@ export default function Hero({ isRevealing }) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '6px',
-                color: 'rgba(255,255,255,0.2)',
+                color: 'var(--text-3)',
               }}
             >
               <RiArrowDownLine size={14} />

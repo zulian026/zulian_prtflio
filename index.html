@@ -27,9 +27,21 @@
   <meta name="twitter:description"
     content="Crafting immersive digital experiences with React, GSAP, and modern web technologies." />
 
-  <!-- Theme -->
+  <!-- Theme: anti-flicker — must run before CSS loads -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.className = theme;
+      } catch (e) {
+        document.documentElement.className = 'dark';
+      }
+    })();
+  </script>
   <meta name="theme-color" content="#080808" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="color-scheme" content="dark light" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

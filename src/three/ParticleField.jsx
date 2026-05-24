@@ -3,32 +3,29 @@
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { SCENE } from './SceneConfig';
+import { SCENE, SCENE_DARK, SCENE_LIGHT } from './SceneConfig';
 
-export default function ParticleField({ mouseRef }) {
+export default function ParticleField({ mouseRef, isDark = true }) {
   const pointsRef = useRef(null);
+  const matRef    = useRef(null);
   const cfg = SCENE.particles;
 
   // Generate positions once
-  const { positions, randoms } = useMemo(() => {
+  const { positions } = useMemo(() => {
     const count = cfg.count;
     const pos = new Float32Array(count * 3);
-    const rnd = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      // Distribute in a sphere volume, biased toward edges
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       const r = Math.cbrt(Math.random()) * cfg.spread;
 
       pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi) - 3; // push slightly back
-
-      rnd[i] = Math.random();
+      pos[i * 3 + 2] = r * Math.cos(phi) - 3;
     }
 
-    return { positions: pos, randoms: rnd };
+    return { positions: pos };
   }, [cfg.count, cfg.spread]);
 
   const geometry = useMemo(() => {
@@ -41,7 +38,7 @@ export default function ParticleField({ mouseRef }) {
     if (!pointsRef.current) return;
     const t = state.clock.elapsedTime;
 
-    // Slow global rotation — makes it feel alive without jarring motion
+    // Slow global rotation
     pointsRef.current.rotation.y = t * cfg.driftSpeed * 60;
     pointsRef.current.rotation.x = Math.sin(t * 0.05) * 0.06;
 
@@ -51,11 +48,21 @@ export default function ParticleField({ mouseRef }) {
       pointsRef.current.position.x = x * 0.12;
       pointsRef.current.position.y = y * 0.08;
     }
+
+    // Lerp opacity between theme targets
+    if (matRef.current) {
+      const targetOpacity = isDark ? SCENE_DARK.particles.opacity : SCENE_LIGHT.particles.opacity;
+      matRef.current.opacity += (targetOpacity - matRef.current.opacity) * 0.04;
+
+      const targetColor = new THREE.Color(isDark ? SCENE_DARK.particles.color : SCENE_LIGHT.particles.color);
+      matRef.current.color.lerp(targetColor, 0.04);
+    }
   });
 
   return (
     <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial
+        ref={matRef}
         color={cfg.color}
         size={cfg.size}
         sizeAttenuation

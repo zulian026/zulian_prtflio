@@ -16,6 +16,8 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import LoadingScreen from './components/LoadingScreen';
 import TransitionOverlay from './components/TransitionOverlay';
+import ThemeToggle from './components/ThemeToggle';
+import { ThemeProvider } from './context/ThemeContext';
 import { useLenis } from './hooks/useLenis';
 import { useCursor } from './hooks/useCursor';
 
@@ -49,7 +51,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
       {/* Custom cursor */}
       <div className="cursor-dot" />
       <div className="cursor-ring" />
@@ -75,7 +77,10 @@ export default function App() {
       >
         <Navbar isRevealing={isRevealing} />
         <Home isRevealing={isRevealing} />
+
+        {/* Floating theme toggle — appears after loading */}
+        {!loading && <ThemeToggle />}
       </div>
-    </>
+    </ThemeProvider>
   );
 }

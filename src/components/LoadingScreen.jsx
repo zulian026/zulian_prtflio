@@ -99,7 +99,7 @@ export default function LoadingScreen({ onComplete }) {
     <div
       ref={containerRef}
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-      style={{ background: '#0a0a0a', overflow: 'hidden' }}
+      style={{ background: 'var(--bg)', overflow: 'hidden' }}
     >
       {/* ── Three.js immersive background — dissolves on cue ── */}
       <Suspense fallback={null}>

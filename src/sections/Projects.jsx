@@ -23,7 +23,7 @@ function useMouseGlow() {
 
 // ── Featured card — large 16:9, full info on hover ─────────
 function FeaturedCard({ project, index, delay = 0 }) {
-  const ref    = useRef(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-6% 0px' });
   const onMouseMove = useMouseGlow();
 
@@ -119,7 +119,7 @@ function FeaturedCard({ project, index, delay = 0 }) {
 
 // ── Secondary card — compact 4:3, minimal info ──────────────
 function SecondaryCard({ project, index, delay = 0 }) {
-  const ref    = useRef(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-4% 0px' });
   const onMouseMove = useMouseGlow();
 
@@ -190,13 +190,13 @@ function SecondaryCard({ project, index, delay = 0 }) {
 // ── Main Projects Section ──────────────────────────────────
 export default function Projects() {
   const headerRef = useRef(null);
-  const inView    = useInView(headerRef, { once: true, margin: '-10% 0px' });
+  const inView = useInView(headerRef, { once: true, margin: '-10% 0px' });
 
-  const featured   = projects.filter((p) => p.featured);    // 3 items
-  const secondary  = projects.filter((p) => !p.featured);   // 3 items
+  const featured = projects.filter((p) => p.featured);    // 3 items
+  const secondary = projects.filter((p) => !p.featured);   // 3 items
 
   // For the featured grid: show first 2 as large cards
-  const featuredTop    = featured.slice(0, 2);
+  const featuredTop = featured.slice(0, 2);
   // Third featured + all secondary go into the 4-column grid
   const secondaryCards = [...featured.slice(2), ...secondary];
 
@@ -269,7 +269,7 @@ export default function Projects() {
         {/* Featured row — 2 large 16:9 cards */}
         <div
           className="projects-featured-grid"
-          style={{ paddingLeft: '32px', paddingRight: '32px', maxWidth: '1040px', margin: '0 auto 2px' }}
+          style={{ paddingLeft: '32px', paddingRight: '32px', maxWidth: '1040px', margin: '0 auto 16px' }}
         >
           {featuredTop.map((project, i) => (
             <FeaturedCard
@@ -284,7 +284,7 @@ export default function Projects() {
         {/* Secondary grid — 4 cards */}
         <div
           className="projects-secondary-grid"
-          style={{ paddingLeft: '32px', paddingRight: '32px', maxWidth: '1040px', margin: '0 auto' }}
+          style={{ paddingLeft: '32px', paddingRight: '32px', maxWidth: '1040px', margin: '0 auto', gap: '16px' }}
         >
           {secondaryCards.map((project, i) => (
             <SecondaryCard

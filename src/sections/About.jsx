@@ -16,11 +16,11 @@ gsap.registerPlugin(ScrollTrigger);
 const badgeClass = {
   Graduate: 'graduate',
   Milestone: 'milestone',
-  Ongoing:   'ongoing',
+  Ongoing: 'ongoing',
 };
 
 function EduItem({ item, index }) {
-  const ref    = useRef(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-8% 0px' });
 
   return (
@@ -70,7 +70,7 @@ function EducationTimeline() {
           scrollTrigger: {
             trigger: wrapRef.current,
             start: 'top 75%',
-            end:   'bottom 40%',
+            end: 'bottom 40%',
             scrub: 1.5,
           },
         }
@@ -90,140 +90,14 @@ function EducationTimeline() {
   );
 }
 
-// ─── Certificate Card ──────────────────────────────────────
-
-function CertCard({ cert, index }) {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-6% 0px' });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="cert-card"
-      initial={{ opacity: 0, y: 18 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {/* Thumbnail preview */}
-      <div className="cert-thumb">
-        <img
-          src={cert.image}
-          alt={cert.title}
-          className="cert-thumb-img"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="cert-thumb-overlay" />
-      </div>
-
-      {/* Body */}
-      <div className="cert-body">
-        {/* Category */}
-        <div className="cert-category">{cert.category}</div>
-
-        {/* Title */}
-        <div className="cert-title">{cert.title}</div>
-
-        {/* Issuer + Year */}
-        <div className="cert-issuer-row">
-          <span className="cert-issuer">{cert.issuer}</span>
-          <span className="cert-year">{cert.year}</span>
-        </div>
-
-        {/* Description */}
-        <p className="cert-desc">{cert.description}</p>
-
-        {/* Skill tags */}
-        <div className="cert-skills">
-          {cert.skills.map((s) => (
-            <span key={s} className="cert-skill-tag">{s}</span>
-          ))}
-        </div>
-
-        {/* Credential link */}
-        <a
-          href={cert.credential}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cert-credential-btn"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <RiExternalLinkLine size={10} />
-          Verify
-        </a>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Certificates Section block ────────────────────────────
-
-function CertificatesSection() {
-  const headerRef  = useRef(null);
-  const headerView = useInView(headerRef, { once: true, margin: '-8% 0px' });
-
-  const featured = certificates.filter((c) => c.featured);   // 2 items
-  const rest     = certificates.filter((c) => !c.featured);  // 3 items
-
-  return (
-    <div style={{ marginTop: '120px' }}>
-
-      {/* Divider */}
-      <div className="cert-section-divider" style={{ margin: '0 0 80px' }} />
-
-      {/* Header */}
-      <div ref={headerRef}>
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={headerView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-label"
-          style={{ marginBottom: '16px' }}
-        >
-          Certificates & Achievements
-        </motion.p>
-        <motion.h3
-          initial={{ opacity: 0, y: 14 }}
-          animate={headerView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.08, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontSize: 'clamp(26px, 3.5vw, 44px)',
-            fontWeight: 300,
-            color: '#fafafa',
-            letterSpacing: '-0.025em',
-            lineHeight: 1.1,
-            marginBottom: '48px',
-          }}
-        >
-          Credentials
-        </motion.h3>
-      </div>
-
-      {/* Featured 2-up row */}
-      <div className="certs-grid-featured">
-        {featured.map((cert, i) => (
-          <CertCard key={cert.id} cert={cert} index={i} />
-        ))}
-      </div>
-
-      {/* Rest — 3-column */}
-      <div className="certs-grid-rest">
-        {rest.map((cert, i) => (
-          <CertCard key={cert.id} cert={cert} index={i + featured.length} />
-        ))}
-      </div>
-
-    </div>
-  );
-}
 
 // ─── Main About Section ────────────────────────────────────
 
 export default function About() {
-  const ref    = useRef(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
 
-  const eduHeaderRef  = useRef(null);
+  const eduHeaderRef = useRef(null);
   const eduHeaderView = useInView(eduHeaderRef, { once: true, margin: '-8% 0px' });
 
   return (
@@ -256,8 +130,8 @@ export default function About() {
             <div style={{ display: 'flex', gap: '16px', marginTop: '32px', flexWrap: 'wrap' }}>
               {[
                 { label: personal.email, href: `mailto:${personal.email}` },
-                { label: 'GitHub',    href: personal.github   },
-                { label: 'LinkedIn',  href: personal.linkedin },
+                { label: 'GitHub', href: personal.github },
+                { label: 'LinkedIn', href: personal.linkedin },
               ].map((l) => (
                 <a
                   key={l.label}
@@ -295,33 +169,9 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* ── Education Timeline ── */}
-        <div style={{ marginTop: '120px' }}>
-          <div ref={eduHeaderRef}>
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={eduHeaderView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="text-label"
-              style={{ marginBottom: '16px' }}
-            >
-              Education & Growth
-            </motion.p>
-            <motion.h3
-              initial={{ opacity: 0, y: 14 }}
-              animate={eduHeaderView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.08, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontSize: 'clamp(26px, 3.5vw, 44px)', fontWeight: 300, color: '#fafafa', letterSpacing: '-0.025em', lineHeight: 1.1, marginBottom: '40px' }}
-            >
-              The Journey
-            </motion.h3>
-            <div className="edu-divider" />
-          </div>
-          <EducationTimeline />
-        </div>
 
-        {/* ── Certificates & Achievements ── */}
-        <CertificatesSection />
+
+
 
       </div>
 

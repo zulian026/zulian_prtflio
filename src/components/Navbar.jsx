@@ -6,6 +6,8 @@ import gsap from 'gsap';
 import { navLinks } from '../data/portfolio';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { scrollToSection } from '../hooks/useLenis';
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '../context/ThemeContext';
 
 const sectionIds = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
 
@@ -15,6 +17,7 @@ export default function Navbar({ isRevealing }) {
   const activeSection = useActiveSection(sectionIds);
   const headerRef = useRef(null);
   const hasRun = useRef(false);
+  const { isDark } = useTheme();
 
   // Scroll shadow detection
   useEffect(() => {
@@ -60,11 +63,11 @@ export default function Navbar({ isRevealing }) {
         <div className="container">
           <div
             className="flex items-center justify-between px-6 py-3 rounded-xl transition-all duration-500"
-            style={{
-              background: scrolled ? 'rgba(10,10,10,0.85)' : 'transparent',
+          style={{
+              background: scrolled ? 'var(--surface-glass)' : 'transparent',
               backdropFilter: scrolled ? 'blur(20px)' : 'none',
               WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-              borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
+              borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
             }}
           >
             {/* Logo */}
@@ -76,7 +79,7 @@ export default function Navbar({ isRevealing }) {
               <span style={{
                 fontFamily: 'JetBrains Mono, monospace',
                 fontSize: '13px',
-                color: 'rgba(255,255,255,0.5)',
+                color: 'var(--text-3)',
                 letterSpacing: '0.1em',
               }}>
                 ZY
@@ -97,8 +100,9 @@ export default function Navbar({ isRevealing }) {
               ))}
             </nav>
 
-            {/* Right: CTA */}
-            <div className="hidden md:flex items-center">
+            {/* Right: CTA + Theme Toggle */}
+            <div className="hidden md:flex items-center gap-3">
+              <ThemeToggle inNav />
               <a
                 href="#contact"
                 onClick={(e) => handleNav(e, '#contact')}
@@ -144,7 +148,10 @@ export default function Navbar({ isRevealing }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[99] flex flex-col items-start justify-end pb-16 px-8"
-            style={{ background: 'rgba(10,10,10,0.97)', backdropFilter: 'blur(20px)' }}
+            style={{
+              background: isDark ? 'rgba(10,10,10,0.97)' : 'rgba(247,247,245,0.97)',
+              backdropFilter: 'blur(20px)',
+            }}
           >
             <nav className="flex flex-col gap-2">
               {navLinks.map((link, i) => (

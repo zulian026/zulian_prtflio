@@ -1,4 +1,5 @@
 // src/three/SceneConfig.js — Shared config for all 3D scenes
+// Exports base SCENE + theme-specific overrides
 
 export const SCENE = {
   // Canvas
@@ -65,4 +66,24 @@ export const SCENE = {
     color: '#ffffff',
     driftSpeed: 0.00015,
   },
+};
+
+// Dark mode overrides — cinematic deep black
+export const SCENE_DARK = {
+  fog: { color: '#0a0a0a', near: 6, far: 18 },
+  ambient: { intensity: 0.15, color: '#ffffff' },
+  pointA: { intensity: 1.2, color: '#ffffff' },
+  pointB: { intensity: 0.4, color: '#aaaacc' },
+  orb: { opacity: 0.07, color: '#ffffff' },
+  particles: { opacity: 0.22, color: '#ffffff' },
+};
+
+// Light mode overrides — soft editorial white
+export const SCENE_LIGHT = {
+  fog: { color: '#f7f7f5', near: 6, far: 16 },
+  ambient: { intensity: 0.5, color: '#f0f0f0' },
+  pointA: { intensity: 0.6, color: '#ffffff' },
+  pointB: { intensity: 0.2, color: '#ccccdd' },
+  orb: { opacity: 0.04, color: '#555555' },
+  particles: { opacity: 0.10, color: '#999999' },
 };

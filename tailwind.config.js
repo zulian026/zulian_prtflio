@@ -8,17 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0a0a0a',
-        'bg-1': '#111111',
-        'bg-2': '#161616',
-        'bg-3': '#1c1c1c',
-        line: 'rgba(255,255,255,0.07)',
-        'line-hover': 'rgba(255,255,255,0.12)',
-        'line-strong': 'rgba(255,255,255,0.16)',
-        'text-1': '#fafafa',
-        'text-2': '#888888',
-        'text-3': '#444444',
-        'text-4': '#2a2a2a',
+        bg: 'var(--bg)',
+        'bg-1': 'var(--bg-1)',
+        'bg-2': 'var(--bg-2)',
+        'bg-3': 'var(--bg-3)',
+        line: 'var(--line)',
+        'line-hover': 'var(--line-hover)',
+        'line-strong': 'var(--line-strong)',
+        'text-1': 'var(--text-1)',
+        'text-2': 'var(--text-2)',
+        'text-3': 'var(--text-3)',
+        'text-4': 'var(--text-4)',
       },
       fontFamily: {
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
